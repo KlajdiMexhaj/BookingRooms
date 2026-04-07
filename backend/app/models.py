@@ -26,3 +26,39 @@ class Room(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Reservation(models.Model):
+    room = models.ForeignKey("Room", on_delete=models.CASCADE, related_name="reservations",blank=True,null=True)
+    name_surname = models.CharField(max_length=120,blank=True,null=True)
+    
+    email = models.EmailField(blank=True,null=True)
+    phone_number = models.CharField(max_length=20,blank=True,null=True)
+
+    check_in = models.DateField(blank=True,null=True)
+    check_out = models.DateField(blank=True,null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name_surname}"
+    
+
+class Contact(models.Model):
+    SUBJECT_CHOICES = [
+        ("general", "General Inquiry"),
+        ("booking", "Booking Question"),
+        ("request", "Special Request"),
+        ("feedback", "Feedback"),
+    ]
+
+    full_name = models.CharField(max_length=150)
+    email = models.EmailField()
+    subject = models.CharField(max_length=50, choices=SUBJECT_CHOICES)
+    message = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.full_name} - {self.subject}"
+

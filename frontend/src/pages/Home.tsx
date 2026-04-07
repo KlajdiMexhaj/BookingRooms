@@ -142,7 +142,7 @@ export default function Home() {
               >
                 <div className="relative h-72 overflow-hidden">
                   <img
-                    src={room.image}
+                    src={`http://127.0.0.1:8000${room.image}`}
                     alt={room.name}
                     className="w-full h-full object-cover"
                   />
